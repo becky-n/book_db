@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Becky's Book Club</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="Description" lang="en" content="ADD SITE DESCRIPTION">
+		<meta name="author" content="ADD AUTHOR INFORMATION">
+		<meta name="robots" content="index, follow">
+        
+
+		<!-- icons -->
+		<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+		<link rel="shortcut icon" href="favicon.ico">
+        <link rel="stylesheet" href="assets/highlight/styles/tomorrow.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+<script src="assets/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+       
+
+		<!-- Override CSS file - add your own CSS rules -->
+		<link rel="stylesheet" href="assets/css/styles.css">
+
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1 class="header-heading">Becky's Book Club</h1>
+			</div>
+			     <div class="nav-bar">
+				<ul class="nav">
+					<li><a href="#Version 1">Version 1</a></li>
+					<li><a href="#Version 2">Version 2</a></li>
+					<li><a href="#Version 3">Version 3</a></li>
+				</ul>
+			</div>
+			<div class="content">
+
+              
+				
+					<hr>
+<button onclick="topFunction()" id="myBtn" title="Go to top">↑</button> 
+
+    <!-- Heading levels -->
+    <h1 id="Version 1">Version One</h1>
+
+<p>I am creating a book club database that shows books that members of the book club have read, information about the books they have read, as well as if the book has a screen adaptation and the rating of the book from members of the book club.
+My categories in my table include title, author, series, publisher, date published, isbn, number of pages, genre, rating and screen adaptation.
+</p>
+<br>
+<p>Version one is a trial and just uses a spreadsheet to look at how the data could be organised and classified.</p>
+<img class="img-responsive" src="assets/img/database_v1_plan.png">
+<br>
+<a href= "book_database_v1.csv">Book Club Spreadsheet v1</a>
+<br>
+<br>
+<h3>Reflection</h3>
+ <p>
+<li>Problem with multiple authors- this could lead to issues with searching/queries</li>
+Repetition (same author, publisher and series)
+<li>Harry Potter as a series repeats twice</li>
+<li>Percy Jackon as a series repeats twice</li>
+<li>J.K Rowling repeats twice (author)</li>
+<li>Rick Riordan repeats twice (author)</li>
+<li>Genre YA fiction repeats multiple times</li>
+<li>Possible issue- year’s 2014 and 2017 repeat a lot of times</li>
+<li>Multiple genres (example: YA fiction, fantasy etc) </li>
+<li>Special characters (hyphens, commas, colons) which could cause search issues</li>
+<li>Author initials (not full name), some people may search for the author’s full name as every other book’s author is formatted this way, and the author’s name may not show (eg. J.K. Rowling)</li>
+</p>
+<p>
+    Possible queries:
+<li>Trying to figure out if the book they read was made into a movie</li>
+<li>Trying to find a book under a specific genre</li>
+<li>Trying to find a book with a specific rating</li>
+<li>Trying to find a publisher of a specific book</li>
+<li>Trying to find the book with the highest number of pages</li>
+  </p>
+    <br>
+                
+              
+<h3>Relevant Implications</h3>
+<p>
+Cultural:
+IS the database culturally appropriate?
+ What does this mean in the context of the database?
+ Text/character sets in digital technology can be complicated. If a program does not recognise a character, it will replace it with a ? or a substitute A for Ā. A database needs to be tested to ensure it will properly store a wide range of character sets from different languages.
+    </p>
+        
+<p>Sustainability/Future Proofing:
+The database should be easy to maintain and easy to add new features to.
+Adding new features should not require major reconfiguration of the whole database
+The database should be designed to prevent duplicated of information and repetition of information. Because if the same information appears multiple times, any alterations to it will need to be done in multiple places in the database, and it is likely some inconsistencies could occur.
+</p>
+<p>
+End user considerations:
+Uses plain English communication to user (does not use “tech speak”) so tht the user can easily understand the information that is being presented to them.
+</p>
+      
+
+<hr>
+<h1 id="Version 2">Version Two</h1>
+                
+ <p>In version two I plan to add in an author table to reduce repeating values and so I can assign multiple books to one author.</p>
+                
+<p>Plan with data types and restrictions on data input</p>
+<img class="img-responsive" src="assets/img/v2_plan.png">
+<a href= "assets/db/book_club_database_v2.db">database v2</a>
+    
+<h4>When there is less than 400 pages and there is a movie or tv show adaptation</h4>
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+select title_table.title, title_table.screen_adaptation
+from title_table
+join author_title_table on author_title_table . title_id = title_table . title_id
+join author_table on author_title_table . author_id = author_table . author_id
+where title_table.number_of_pages &lt; 400 and title_table.screen_adaptation = "Yes"                  </code>
+</pre>
+<table>
+<tr><th>title</th><th>screen_adaptation</th></tr>
+<tr><td>The Fault in Our Stars</td><td>Yes</td></tr>
+<tr><td>Percy Jackson: Sea of Monsters</td><td>Yes</td></tr>
+<tr><td>Harry Potter and the Philosopher’s Stone</td><td>Yes</td></tr>
+<tr><td>Animal Farm</td><td>Yes</td></tr>
+<tr><td>We Were Liars</td><td>Yes</td></tr>
+<tr><td>The Red Ribbon</td><td>Yes</td></tr>
+<tr><td>Rosemary’s Baby</td><td>Yes</td></tr>
+<tr><td>The Outsiders</td><td>Yes</td></tr>
+<tr><td>Murder On The Orient Express</td><td>Yes</td></tr>
+<tr><td>To Kill a Mockingbird</td><td>Yes</td></tr>
+</table>
+<br>             
+
+<h4>Error testing Author Names</h4>
+<p>There was an issue where some Author's would not appear in the query results (discussed in reflection).</p>
+<img src="assets/img/arthur_like_1.png">
+<br>
+<img src="assets/img/arthur_like_2.png">
+<br>
+<br>
+<img  src="assets/img/error_testing_1.png">
+<br>
+<img  src="assets/img/error_testing_2.png">
+<br>
+<br>
+<img  src="assets/img/error_testing_3.png">
+<br>
+<img  src="assets/img/error_testing_4.png">
+<br>        
+<br>             
+<br>
+<h4>If books had been made into movies or tv shows and the author who wrote the book</h4>   
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+select author_table.author_firstname, author_table.author_lastname, title_table.title, title_table.screen_adaptation
+from title_table
+join author_title_table on author_title_table.title_id = title_table.title_id
+join author_table on author_title_table.author_id = author_table.author_id
+where screen_adaptation = "Yes"                           
+</code>
+</pre>
+<table>
+<tr><th>author_firstname</th><th>author_lastname</th><th>title</th><th>screen_adaptation</th></tr>
+<tr><td>J.K.</td><td>Rowling</td><td>Harry Potter and the Prisoner of Azkaban</td><td>Yes</td></tr>
+<tr><td>Kevin</td><td>Kwan</td><td>Crazy Rich Asians</td><td>Yes</td></tr>
+<tr><td>John</td><td>Green</td><td>The Fault in Our Stars</td><td>Yes</td></tr>
+<tr><td>Jennifer</td><td>Niven</td><td>All the Bright Places</td><td>Yes</td></tr>
+<tr><td>Rick</td><td>Riordan</td><td>Percy Jackson: Sea of Monsters</td><td>Yes</td></tr>
+<tr><td>J.K.</td><td>Rowling</td><td>Harry Potter and the Philosopher’s Stone</td><td>Yes</td></tr>
+<tr><td>George</td><td>Orwell</td><td>Animal Farm</td><td>Yes</td></tr>
+<tr><td>E.</td><td>Lockhart</td><td>We Were Liars</td><td>Yes</td></tr>
+<tr><td>Lucy</td><td>Adlington</td><td>The Red Ribbon</td><td>Yes</td></tr>
+<tr><td>Markus</td><td>Zusak</td><td>The Book Thief</td><td>Yes</td></tr>
+<tr><td>Ira</td><td>Levin</td><td>Rosemary’s Baby</td><td>Yes</td></tr>
+<tr><td>Susan Eloise</td><td>Hinton</td><td>The Outsiders</td><td>Yes</td></tr>
+<tr><td>Agatha</td><td>Christie</td><td>Murder On The Orient Express</td><td>Yes</td></tr>
+<tr><td>Harper</td><td>Lee</td><td>To Kill a Mockingbird</td><td>Yes</td></tr>
+</table>
+       
+  <br>              
+<h4>Finding the book in the database with the highest number of pages</h4>
+ <pre style="font-size: 1.5em;">
+<code class="SQL">
+select author_table.author_firstname, author_table.author_lastname, title_table.title, title_table.number_of_pages
+from title_table
+join author_title_table on author_title_table.title_id = title_table.title_id
+join author_table on author_title_table.author_id = author_table.author_id
+order by number_of_pages desc                         
+</code>               
+</pre>             
+                
+ <table>
+<tr><th>author_firstname</th><th>author_lastname</th><th>title</th><th>number_of_pages</th></tr>
+<tr><td>Markus</td><td>Zusak</td><td>The Book Thief</td><td>584</td></tr>
+<tr><td>Arthur</td><td>Ransome</td><td>Winter Holiday</td><td>484</td></tr>
+<tr><td>Bill</td><td>Bryson</td><td>The Road to Little Dribbling: More Notes from a Small Island</td><td>476</td></tr>
+<tr><td>J.K.</td><td>Rowling</td><td>Harry Potter and the Prisoner of Azkaban</td><td>464</td></tr>
+<tr><td>Jennifer</td><td>Niven</td><td>All the Bright Places</td><td>432</td></tr>
+<tr><td>Rick</td><td>Riordan</td><td>Percy Jackson's Greek Gods</td><td>404</td></tr>
+<tr><td>Kevin</td><td>Kwan</td><td>Crazy Rich Asians</td><td>403</td></tr>
+<tr><td>Victoria</td><td>Aveyard</td><td>Red Queen</td><td>388</td></tr>
+<tr><td>Claudia</td><td>Gray</td><td>A Thousand Pieces of You</td><td>384</td></tr>
+<tr><td>Natasha</td><td>Preston</td><td>The Cellar</td><td>368</td></tr>
+<tr><td>Louis</td><td>Tomlinson</td><td>One Direction: Who We Are: Our Official Autobiography</td><td>352</td></tr>
+<tr><td>Zayn</td><td>Malik</td><td>One Direction: Who We Are: Our Official Autobiography</td><td>352</td></tr>
+<tr><td>Harry</td><td>Styles</td><td>One Direction: Who We Are: Our Official Autobiography</td><td>352</td></tr>
+<tr><td>Liam</td><td>Payne</td><td>One Direction: Who We Are: Our Official Autobiography</td><td>352</td></tr>
+<tr><td>Niall</td><td>Horan</td><td>One Direction: Who We Are: Our Official Autobiography</td><td>352</td></tr>
+<tr><td>John</td><td>Green</td><td>The Fault in Our Stars</td><td>313</td></tr>
+<tr><td>Vikki</td><td>Wakefield</td><td>Ballad for a Mad Girl</td><td>309</td></tr>
+<tr><td>Zayn</td><td>Malik</td><td>ZAYN</td><td>288</td></tr>
+<tr><td>Lucy</td><td>Adlington</td><td>The Red Ribbon</td><td>288</td></tr>
+<tr><td>Harper</td><td>Lee</td><td>To Kill a Mockingbird</td><td>281</td></tr>
+<tr><td>Rick</td><td>Riordan</td><td>Percy Jackson: Sea of Monsters</td><td>279</td></tr>
+<tr><td>Yaa</td><td>Gyasi</td><td>Transcendent Kingdom</td><td>264</td></tr>
+<tr><td>E.</td><td>Lockhart</td><td>We Were Liars</td><td>256</td></tr>
+<tr><td>Agatha</td><td>Christie</td><td>Murder On The Orient Express</td><td>256</td></tr>
+<tr><td>Ira</td><td>Levin</td><td>Rosemary’s Baby</td><td>229</td></tr>
+<tr><td>J.K.</td><td>Rowling</td><td>Harry Potter and the Philosopher’s Stone</td><td>223</td></tr>
+<tr><td>Susan Eloise</td><td>Hinton</td><td>The Outsiders</td><td>216</td></tr>
+<tr><td>George</td><td>Orwell</td><td>Animal Farm</td><td>139</td></tr>
+</table>               
+ <br>
+<h4>Find all books with the genre YA Fiction</h4>
+
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+select author_table.author_firstname, author_table.author_lastname, title_table.title, title_table.genre
+from title_table
+join author_title_table on author_title_table.title_id = title_table.title_id
+join author_table on author_title_table.author_id = author_table.author_id
+where title_table.genre = "YA Fiction"             
+</code>
+</pre>  
+                
+<table>
+<tr><th>author_firstname</th><th>author_lastname</th><th>title</th><th>genre</th></tr>
+<tr><td>John</td><td>Green</td><td>The Fault in Our Stars</td><td>YA Fiction</td></tr>
+<tr><td>Jennifer</td><td>Niven</td><td>All the Bright Places</td><td>YA Fiction</td></tr>
+</table>
+<br>
+<h4>Find all the books that start with the letter 'A'</h4>
+                
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+select author_table.author_firstname, author_table.author_lastname, title_table.title
+from title_table
+join author_title_table on author_title_table.title_id = title_table.title_id
+join author_table on author_title_table.author_id = author_table.author_id
+where title_table.title like "A%"            
+</code>
+</pre>               
+                
+<table>
+<tr><th>author_firstname</th><th>author_lastname</th><th>title</th></tr>
+<tr><td>Jennifer</td><td>Niven</td><td>All the Bright Places</td></tr>
+<tr><td>George</td><td>Orwell</td><td>Animal Farm</td></tr>
+<tr><td>Claudia</td><td>Gray</td><td>A Thousand Pieces of You</td></tr>
+</table>
+<br>                           
+
+ <h4>Inserting new data into the table and deleting data</h4>               
+
+                
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+insert into author_table(  author_firstname, author_lastname )
+values ("Stephenie", "Meyer") 
+;                        
+</code>
+</pre>
+                
+                
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+insert into title_table (title, date_published, ISBN, number_of_pages, genre, rating, screen_adaptation, series, publisher)
+values ("Twilight", "2005", "9780316015844", "501", "YA Fiction, Fantasy", "6", "Yes", "The Twilight Saga", "Little, Brown and Company") 
+;                   
+</code>
+</pre>
+                
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+insert into author_title_table ( author_id , title_id )
+values (
+( select author_id
+from author_table
+where author_firstname = "Stephenie" and author_lastname= "Meyer") ,
+
+( select title_id
+from title_table
+where title = "Twilight"
+)
+) ;                          
+</code>
+</pre>
+
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+delete from author_title_table
+where author_title_table.author_id = ( select author_id
+from author_table 
+where author_firstname  = "Stephenie" );
+delete from title_table
+where title  = "Twilight";
+delete from author_table
+where author_firstname  = "Stephenie";             
+</code>
+</pre>
+
+            
+    
+<h4>Reflection</h4>
+<p>
+<li>
+In version 2 I split the database into 3 tables. I separated the author’s and the main data so that I could eliminate the problem of duplicate authors. The issue was that author’s such as Rick Riordan would come up twice, and I had to deal with the issue of multiple authors writing one book. In version 2, I have eliminated this problem by giving each author an author_id, so that they will now appear once. Through the association table and added author table I was also able to deal with the problem of having multiple authors that wrote one book.
+<br>
+<br>
+<li>
+There is also still the issue with series as there is a lot of empty fields, and this is not ideal.  
+</li>
+  <br>
+<br>  
+<li>
+ There was an issue with the datasheets which caused a few issues with the database. These were issues such as a space after a word. So I cleaned up the sheet by removing any tailing spaces.
+</li>
+   <br>
+<br> 
+<li>There was an issue in the database where the isbn number came up with a .0 on the end of it when the csv was imported to the database. The issue was happening because SQL was automatically setting ISBN as a real text. I figured out that I could fix this issue however by disabling data type detection and as I set the dataypes in my table myself it was all fine. 
+</li>
+  <br>
+<br>   
+<li>There was also an issue however where when you search the first name of some authors nothing turns up but when you search the last name it works. It only happened for author_id's 7,8,11,13 and 17 and there seemed to be no pattern. After some testing however, I figured out the problem and fixed it. To figure out the problem I went through and tested the "like and %" query style and found that the author appeared when this query was searched, so I figured that the issue was that there was a space after the Authors' name in the original datasheet. I went got rid of all spaces after first and last names and spaces and it now works.
+</li>
+<br>
+<br>
+<li>
+In version 2 of my database it only shows 2 books that have the genre YA Fiction. However, in our actual database, there are more than 2 books that have the genre YA Fiction, but as they also have other genres, the database can't detect the genre YA Fiction. Also, when you look up just "YA" or "fiction" nothing appears. In the next version I will create a seperate  table to manage the multiple genres so I can assign multiple genres to one book. Right now, when you search up more than one genre it does not show up. It is also because the genre's are split with commas which the program doesn't separate.
+</li>
+<br>
+<br>  
+<li>
+I also tested code to insert a new author and a new title into the database as well as deleting an author and a title. I struggled with this at first because I first tried to do all values at once. However, this was impractical and confusing, so I seperated and organised all of the information I wanted to put in into sepereate sections.
+</li>
+    
+ </p>   
+
+<hr>
+<h1 id="Version 3">Version Three</h1>
+<p>Plan with data types</p>
+<img class="img-responsive" src="assets/img/v3_plan.jpg">
+<a href= "assets/db/book_club_database_v3.db">database v3</a>
+                
+<p>In version three I added a genre table. The genre table makes it so that one book can receive multiple genres so it will fix the issue from version two where searching multiple genres would cause an error.</p>
+
+<h4>Finding all books that have the genres YA and fiction</h4>
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+select genre_table.genre, title_table.title, author_table.author_firstname, author_table.author_lastname
+from title_table
+join genre_title_table on genre_title_table.title_id = title_table.title_id
+join genre_table on genre_title_table.genre_id = genre_table.genre_id
+join author_title_table on author_title_table.title_id= title_table.title_id
+join author_table on author_title_table.author_id=author_table.author_id
+where genre = "YA" or genre="fiction"
+</code>
+</pre>    
+                
+<table>
+<tr><th>genre</th><th>title</th><th>author_firstname</th><th>author_lastname</th></tr>
+<tr><td>YA</td><td>Harry Potter and the Prisoner of Azkaban</td><td>J.K.</td><td>Rowling</td></tr>
+<tr><td>fiction</td><td>Harry Potter and the Prisoner of Azkaban</td><td>J.K.</td><td>Rowling</td></tr>
+<tr><td>fiction</td><td>Crazy Rich Asians</td><td>Kevin</td><td>Kwan</td></tr>
+<tr><td>YA</td><td>The Fault in Our Stars</td><td>John</td><td>Green</td></tr>
+<tr><td>YA</td><td>Red Queen</td><td>Victoria</td><td>Aveyard</td></tr>
+<tr><td>fiction</td><td>Red Queen</td><td>Victoria</td><td>Aveyard</td></tr>
+<tr><td>YA</td><td>All the Bright Places</td><td>Jennifer</td><td>Niven</td></tr>
+<tr><td>fiction</td><td>All the Bright Places</td><td>Jennifer</td><td>Niven</td></tr>
+<tr><td>YA</td><td>Percy Jackson's Greek Gods</td><td>Rick</td><td>Riordan</td></tr>
+<tr><td>fiction</td><td>Percy Jackson's Greek Gods</td><td>Rick</td><td>Riordan</td></tr>
+<tr><td>YA</td><td>Percy Jackson: Sea of Monsters</td><td>Rick</td><td>Riordan</td></tr>
+<tr><td>fiction</td><td>Percy Jackson: Sea of Monsters</td><td>Rick</td><td>Riordan</td></tr>
+<tr><td>YA</td><td>Harry Potter and the Philosopher’s Stone</td><td>J.K.</td><td>Rowling</td></tr>
+<tr><td>fiction</td><td>Harry Potter and the Philosopher’s Stone</td><td>J.K.</td><td>Rowling</td></tr>
+<tr><td>YA</td><td>Animal Farm</td><td>George</td><td>Orwell</td></tr>
+<tr><td>fiction</td><td>Animal Farm</td><td>George</td><td>Orwell</td></tr>
+<tr><td>YA</td><td>A Thousand Pieces of You</td><td>Claudia</td><td>Gray</td></tr>
+<tr><td>fiction</td><td>A Thousand Pieces of You</td><td>Claudia</td><td>Gray</td></tr>
+<tr><td>fiction</td><td>The Road to Little Dribbling: More Notes from a Small Island</td><td>Bill</td><td>Bryson</td></tr>
+<tr><td>YA</td><td>We Were Liars</td><td>E.</td><td>Lockhart</td></tr>
+<tr><td>fiction</td><td>We Were Liars</td><td>E.</td><td>Lockhart</td></tr>
+<tr><td>YA</td><td>The Red Ribbon</td><td>Lucy</td><td>Adlington</td></tr>
+<tr><td>fiction</td><td>The Red Ribbon</td><td>Lucy</td><td>Adlington</td></tr>
+<tr><td>YA</td><td>Ballad for a Mad Girl</td><td>Vikki</td><td>Wakefield</td></tr>
+<tr><td>fiction</td><td>Ballad for a Mad Girl</td><td>Vikki</td><td>Wakefield</td></tr>
+<tr><td>fiction</td><td>The Book Thief</td><td>Markus</td><td>Zusak</td></tr>
+<tr><td>YA</td><td>Rosemary’s Baby</td><td>Ira</td><td>Levin</td></tr>
+<tr><td>fiction</td><td>Transcendent Kingdom</td><td>Yaa</td><td>Gyasi</td></tr>
+<tr><td>YA</td><td>The Outsiders</td><td>Susan Eloise</td><td>Hinton</td></tr>
+<tr><td>fiction</td><td>The Outsiders</td><td>Susan Eloise</td><td>Hinton</td></tr>
+<tr><td>fiction</td><td>Murder On The Orient Express</td><td>Agatha</td><td>Christie</td></tr>
+<tr><td>YA</td><td>To Kill a Mockingbird</td><td>Harper</td><td>Lee</td></tr>
+<tr><td>fiction</td><td>To Kill a Mockingbird</td><td>Harper</td><td>Lee</td></tr>
+</table>
+<br>
+<h4>Author with an accent in their name</h4>                
+<pre style="font-size: 1.5em;">
+<code class="SQL">          
+select genre_table.genre, title_table.title, author_table.author_firstname, author_table.author_lastname
+from title_table
+join genre_title_table on genre_title_table.title_id = title_table.title_id
+join genre_table on genre_title_table.genre_id = genre_table.genre_id
+join author_title_table on author_title_table.title_id= title_table.title_id
+join author_table on author_title_table.author_id=author_table.author_id
+where genre = "mystery" and author_firstname="Émile" and author_lastname="Gaboriau"            
+</code>
+</pre>
+
+<table>
+<tr><th>genre</th><th>title</th><th>author_firstname</th><th>author_lastname</th></tr>
+<tr><td>mystery</td><td>Monsieur Lecoq</td><td>Émile</td><td>Gaboriau</td></tr>
+</table>               
+                
+<br>
+<pre style="font-size: 1.5em;">
+<code class="SQL">
+select genre_table.genre, title_table.title, author_table.author_firstname, author_table.author_lastname
+from title_table
+join genre_title_table on genre_title_table.title_id = title_table.title_id
+join genre_table on genre_title_table.genre_id = genre_table.genre_id
+join author_title_table on author_title_table.title_id= title_table.title_id
+join author_table on author_title_table.author_id=author_table.author_id
+where title="沈黙" and genre="fiction" and author_lastname="Endō"
+</code>
+</pre>
+  
+<table>
+<tr><th>genre</th><th>title</th><th>author_firstname</th><th>author_lastname</th></tr>
+<tr><td>fiction</td><td>沈黙</td><td>Shūsaku</td><td>Endō</td></tr>
+</table>
+                
+
+<pre style="font-size: 1.5em;">
+<code class="SQL"> 
+select count(title_id) 
+from genre_title_table
+where genre_id = "4";
+</code>
+</pre>
+
+<h4>Counting all the titles with the fantasy genre</h4>
+<table>
+<tr><th>count(title_id)</th></tr>
+<tr><td>5</td></tr>
+</table>
+          
+                
+ <p>
+<li>
+When making version 3 with the additional genre table, I tested out two versions. The additional genre table means that multiple genres can be assigned to one title. This means that the title will now appear when the user searches for more than one genre. For example, in my queries "Red Queen" appears when the genre fiction is searched as well as fantasy. Assigning multiple genres makes it easier to classify books, as well as in the context of a book club, the user would not have issues finding all books under a certain genre where the book has more than one genre.
+</li> 
+ <br>
+<br>   
+<li>Version one of the genre table assigned a genre to each book then listed yes or no for YA genre and fiction genre. I did this because YA and fiction were genres that nearly every book included, and then each book generally only had one other genre. However, this design was not easy to change if adjustments were to be made and had some issues with repeating values.  
+</li>
+<br>
+<br>
+<li>I ended up going with my second version of the genre table. The second version of the genre table had a list with all the genres and assigned them all with unique ids. I then went an assigned the relevant genre ids to the title ids in a seperate association table. This design means that it is a lot easier to change and enter data. With the genre table now, I can now make a query (as seen before) where I can search up the genres YA and fiction together, and the result will show up.
+</li>
+<br>
+<br>
+<li>
+In the future it would be good if I made another table to keep track of book owners. As the context for my database is a database of books for a book club, it could be useful for the user to know who is reading what book/who currently owns what book if the books are shared across all book club members.
+</li>
+<br>
+<br>
+<li>
+It could also be interesting to add in information about Author's in the author table or other books that the author has written. Often if people like a book by a certain author they like to read other books under that author too.    
+</li>
+<br>
+<br>
+<li>
+Another possible addition is a table showing the names of the screen adaptations of the books and the rating that they got. A lot of people like to watch the tv or movie version of books to help them visualise the characters or storyline better, so adding this into the database would be useful for the Book Club members.
+</li>
+     
+</p>
+<hr>
+<h1> Relevant Implications Summary</h1>
+                
+<p>
+<li>
+Cultural  
+With so much of our society today including a wide range of diverse cultures, it is important that we embrace all aspects of cultures, respect all languages and names. With the context of my database being a book club, it may include book club members from a wide range of cultures, who may want to share books from their culture with the rest of the book club. To respect all cultures and people's names, the database should accept all letters including those with accents on them. This means that all cultures will be treated fairly and their names will be respected and not culturally appropriated. In my database, I have addressed this issue by inserting an author with an accent in their name and testing to see if the database recognises it and shows the author when searched. In the query above you can see that I tested this using Émile Gaboriau who is a French author. The query has an É in the input and the output also has an É showing that the database includes accents and does not replace it with a substitue or come up with an error message. I also inserted a book by a Japanese author into the database as well and tested it to see what happened (as can be seen above). As shown in the table, even though the Japanese characters are not in english they still show up in the output when searched, which means it is likely to work with most other languages too. This shows that my database allows languages from all cultures. 
+</li>
+<br>
+<li>
+Sustainability/Future Proofing 
+It is important to consider how easy it is to add or change information when designing the database, so there will be less issues in the future. In my database, I have future proofed by drawing out diagrams, making plans and by designing tables that will be able to be changed easily. In all of my versions I made sure to write out a brief description about what is being added in the new version as well as making a plan for all versions. For versions 2 and 3 I drew a diagram (as can be seen above) showing the different tables and the columns that will be included in each of the tables. This is relevant to Future proofing because it means if there is an issue with the table I can refer back to my diagram and it will help me to identify the issue easier if changes need to be made. As well as this, it is easy to add new information into my database. The user just has to use "insert" and fill out the values. This is a lot simpler than having to reupload a new csv. It is also easy to assign author's with multiple books/multiple authors to one book and multiple genres to one book through my usage of association tables. The user will just have to select the relevant genre_id/author_id and match it to the title_id. This is a lot more efficient than using a design where you have to type in each genre/author in order to connect it to the main title table every time a new book is added. The design of the database also helps if the user wishes to make further improvements. As seen in version 2 and 3, it is easy to create a new table and connect it to the rest of the database using an association table. And because the data tables are specified into distinct "entities" (author, title, genre) it could be easy further tables (like readers).
+<br>
+<br>
+<li>
+End User considerations 
+In my database, I have addressed end user considerations by using simple easy-to-understand language throughout my database. All of the column names are common words in the english language that people are likely to be familiar with, and most of the words used are plain and simple not "tech speak". I think the database as a whole would be quite easy to navigate for someone who has not much experience with databases. As well as this, the database suits the needs of a book club well. It contains the key information that would be useful for a book club and it's design makes it easy for the user to search up books.
+</li>   
+
+                          
+</p>
+<script>
+//Get the button
+var mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+    
+</script>
+<hr>
+
+			
+			</div>
+			<div class="footer">
+				&copy; Copyright Becky Ngan 2021
+			</div>
+		</div>
+	</body>
+</html>
